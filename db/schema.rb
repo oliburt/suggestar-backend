@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_30_163012) do
+ActiveRecord::Schema.define(version: 2019_10_30_165137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_10_30_163012) do
     t.string "address_type"
     t.string "flat_number"
     t.string "governing_district"
-    t.string "minor_muncipality"
+    t.string "minor_municipality"
     t.string "major_municipality"
     t.string "post_code"
     t.string "country"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 2019_10_30_163012) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "venue_id", null: false
+    t.index ["venue_id"], name: "index_listings_on_venue_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -89,6 +91,7 @@ ActiveRecord::Schema.define(version: 2019_10_30_163012) do
   add_foreign_key "addresses", "venues"
   add_foreign_key "listing_categories", "categories"
   add_foreign_key "listing_categories", "listings"
+  add_foreign_key "listings", "venues"
   add_foreign_key "reviews", "users"
   add_foreign_key "reviews", "venues"
   add_foreign_key "venues", "users"

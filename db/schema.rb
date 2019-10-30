@@ -10,10 +10,63 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_30_133114) do
+ActiveRecord::Schema.define(version: 2019_10_30_163012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.bigint "venue_id", null: false
+    t.string "address_identifier"
+    t.integer "street_number"
+    t.string "street_name"
+    t.string "address_type"
+    t.string "flat_number"
+    t.string "governing_district"
+    t.string "minor_muncipality"
+    t.string "major_municipality"
+    t.string "post_code"
+    t.string "country"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["venue_id"], name: "index_addresses_on_venue_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "listing_categories", force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_listing_categories_on_category_id"
+    t.index ["listing_id"], name: "index_listing_categories_on_listing_id"
+  end
+
+  create_table "listings", force: :cascade do |t|
+    t.string "description"
+    t.string "ticket_url"
+    t.string "age_restriction"
+    t.datetime "datetime"
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "venue_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "rating"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+    t.index ["venue_id"], name: "index_reviews_on_venue_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -24,4 +77,19 @@ ActiveRecord::Schema.define(version: 2019_10_30_133114) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "venues", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_venues_on_user_id"
+  end
+
+  add_foreign_key "addresses", "venues"
+  add_foreign_key "listing_categories", "categories"
+  add_foreign_key "listing_categories", "listings"
+  add_foreign_key "reviews", "users"
+  add_foreign_key "reviews", "venues"
+  add_foreign_key "venues", "users"
 end

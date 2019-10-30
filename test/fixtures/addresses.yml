@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  venue: one
+  address_identifier: MyString
+  street_number: 1
+  street_name: MyString
+  address_type: MyString
+  flat_number: MyString
+  governing_district: MyString
+  minor_muncipality: MyString
+  major_municipality: MyString
+  post_code: MyString
+  country: MyString
+
+two:
+  venue: two
+  address_identifier: MyString
+  street_number: 1
+  street_name: MyString
+  address_type: MyString
+  flat_number: MyString
+  governing_district: MyString
+  minor_muncipality: MyString
+  major_municipality: MyString
+  post_code: MyString
+  country: MyString

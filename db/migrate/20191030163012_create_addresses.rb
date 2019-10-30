@@ -8,7 +8,7 @@ class CreateAddresses < ActiveRecord::Migration[6.0]
       t.string :address_type
       t.string :flat_number
       t.string :governing_district
-      t.string :minor_muncipality
+      t.string :minor_municipality
       t.string :major_municipality
       t.string :post_code
       t.string :country

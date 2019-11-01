@@ -15,23 +15,6 @@ ActiveRecord::Schema.define(version: 2019_10_30_165137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addresses", force: :cascade do |t|
-    t.bigint "venue_id", null: false
-    t.string "address_identifier"
-    t.integer "street_number"
-    t.string "street_name"
-    t.string "address_type"
-    t.string "flat_number"
-    t.string "governing_district"
-    t.string "minor_municipality"
-    t.string "major_municipality"
-    t.string "post_code"
-    t.string "country"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["venue_id"], name: "index_addresses_on_venue_id"
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string "type"
     t.datetime "created_at", precision: 6, null: false
@@ -82,13 +65,14 @@ ActiveRecord::Schema.define(version: 2019_10_30_165137) do
   create_table "venues", force: :cascade do |t|
     t.string "name"
     t.string "description"
+    t.float "latitude"
+    t.float "longitude"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_venues_on_user_id"
   end
 
-  add_foreign_key "addresses", "venues"
   add_foreign_key "listing_categories", "categories"
   add_foreign_key "listing_categories", "listings"
   add_foreign_key "listings", "venues"

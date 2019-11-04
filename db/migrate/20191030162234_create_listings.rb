@@ -4,7 +4,8 @@ class CreateListings < ActiveRecord::Migration[6.0]
       t.string :description
       t.string :ticket_url
       t.string :age_restriction
-      t.datetime :datetime
+      t.datetime :begin_datetime
+      t.datetime :end_datetime
       t.string :title
 
       t.timestamps

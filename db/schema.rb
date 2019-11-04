@@ -34,7 +34,8 @@ ActiveRecord::Schema.define(version: 2019_10_30_165137) do
     t.string "description"
     t.string "ticket_url"
     t.string "age_restriction"
-    t.datetime "datetime"
+    t.datetime "begin_datetime"
+    t.datetime "end_datetime"
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

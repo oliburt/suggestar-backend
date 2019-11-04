@@ -35,6 +35,6 @@ category_list = [
     "Well-Being"
 ]
 
-category_list.each do |type|
-    Category.create(type: type)
+category_list.each do |name|
+    Category.create(name: name)
 end

@@ -6,9 +6,35 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Category.destroy_all
 
-User.create(email: 'a@a.com', first_name: "Oliver", last_name: "Burt", password: "123", password_confirmation: "123")
+category_list = [
+    "Music",
+    "Food",
+    "Drinks",
+    "Pub Quiz",
+    "Live Music",
+    "Market",
+    "Education",
+    "Sport",
+    "Festival",
+    "Corporate",
+    "Business",
+    "Technology",
+    "Social",
+    "Karaoke",
+    "Promotion",
+    "Deal",
+    "Free",
+    "Health",
+    "Fashion",
+    "Art",
+    "Exhibition",
+    "Meetup",
+    "Dating",
+    "Well-Being"
+]
 
-Venue.create(name: "Flatiron", description: "Coding School", user_id: 1)
-
-Address.create(venue_id: 1, address_identifier: "WeWork", street_number: 131, street_name: "Finsbury Pavement", address_type: "Office", governing_district: "London", minor_municipality: "Finsbury", major_municipality: "London", post_code: "EC2A 1NT", country: "United Kingdom")
+category_list.each do |type|
+    Category.create(type: type)
+end

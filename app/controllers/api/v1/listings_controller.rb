@@ -9,7 +9,7 @@ class Api::V1::ListingsController < ApplicationController
         location1 = [listing.venue.latitude, listing.venue.longitude]
         location2 = [params[:latitude].to_f, params[:longitude].to_f]
         distance = get_distance(location1, location2)
-        distance <= params[:radius].to_f && within_correct_time(listing)
+        distance <= params[:radius].to_f && listing.within_correct_time
       end
       
       render json: filteredListings
@@ -25,6 +25,27 @@ class Api::V1::ListingsController < ApplicationController
     if @current_user
       listing = Listing.create(title: listing_params[:title], description: listing_params[:description], begin_datetime: listing_params[:begin_datetime], end_datetime: listing_params[:end_datetime], venue_id: listing_params[:venue_id], age_restriction: listing_params[:age_restriction], ticket_url: listing_params[:ticket_url])
       if listing.valid?
+        params[:category_ids].each do |id|
+          ListingCategory.create(listing_id: listing.id, category_id: id)
+        end
+        render json: listing
+      else
+          render json: {errors: listing.errors.full_messages }, status: :not_accepted
+      end
+    else
+      render json: { errors: ["Invalid User"]}, status: :forbidden
+    end
+  end
+
+  def update
+    # byebug
+    if @current_user
+      listing = Listing.find(params[:id])
+      listing.update(title: listing_params[:title], description: listing_params[:description], begin_datetime: listing_params[:begin_datetime], end_datetime: listing_params[:end_datetime], venue_id: listing_params[:venue_id], age_restriction: listing_params[:age_restriction], ticket_url: listing_params[:ticket_url])
+      if listing.valid?
+        
+        listing.listing_categories.each{|listcat| listcat.destroy }
+    
         params[:category_ids].each do |id|
           ListingCategory.create(listing_id: listing.id, category_id: id)
         end
@@ -60,8 +81,6 @@ class Api::V1::ListingsController < ApplicationController
     rm * c
   end
 
-  def within_correct_time(listing)
-    ((listing.begin_datetime.to_datetime >= DateTime.now && listing.begin_datetime.to_datetime < 1.days.from_now ) || (listing.begin_datetime.to_datetime < DateTime.now && listing.end_datetime.to_datetime >= DateTime.now))
-  end
+  
 
 end

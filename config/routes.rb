@@ -3,10 +3,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :listings, only: [:index, :show, :create]
+      resources :listings, only: [:index, :show, :create, :update, :destroy]
       resources :categories, only: [:index]
       resources :users, only: [:index, :update]
-      resources :venues, only: [:create, :show, :index]
+      resources :venues, only: [:create, :show, :index, :update, :destroy]
       post '/login', to: 'auth#create'
       post '/register', to: 'users#create'
       post '/validate', to: 'auth#validate'

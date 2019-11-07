@@ -31,10 +31,17 @@ class Api::V1::VenuesController < ApplicationController
 
     def destroy
         venue = Venue.find(params[:id])
-        if venue.destroy
+        if venue
+            venue.listings.each{|l| 
+                l.listing_categories.each{|lc| lc.destroy }
+                l.likes.each{|l| l.destroy}
+                l.destroy 
+            }
+            venue.reviews.each{|r| r.destroy }
+            venue.destroy
             render json: venue
         else
-            render json: { errors: venue.errors.full_messages }, status: :not_accepted
+            render json: { errors: ["Venue not Found"] }, status: :not_found
         end
     end
 

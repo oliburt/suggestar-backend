@@ -58,6 +58,25 @@ class Api::V1::ListingsController < ApplicationController
     end
   end
 
+def destroy
+        listing = Listing.find(params[:id])
+
+        if listing 
+      
+          listing.likes.each{|l| 
+              l.destroy 
+          }
+          listing.listing_categories.each{|lc| lc.destroy }
+          listing.destroy
+
+          
+          render json: listing
+          
+        else
+          render json: { errors: ["Listing Not Found"] }, status: :not_found
+        end
+    end
+
   private
 
   def listing_params

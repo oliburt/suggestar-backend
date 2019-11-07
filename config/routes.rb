@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :categories, only: [:index]
       resources :users, only: [:index, :update]
       resources :venues, only: [:create, :show, :index, :update, :destroy]
+      post '/like', to: 'likes#toggle'
       post '/login', to: 'auth#create'
       post '/register', to: 'users#create'
       post '/validate', to: 'auth#validate'

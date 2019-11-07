@@ -32,7 +32,11 @@ category_list = [
     "Exhibition",
     "Meetup",
     "Dating",
-    "Well-Being"
+    "Well-Being",
+    "Comedy",
+    "Film",
+    "Theatre",
+    "Performing Arts"
 ]
 
 category_list.each do |name|

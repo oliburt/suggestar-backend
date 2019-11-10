@@ -48,6 +48,6 @@ class Api::V1::VenuesController < ApplicationController
     private
 
     def venue_params
-        params.require(:venue).permit(:name, :description, :place_id, :latitude, :longitude, :address, :id)
+        params.require(:venue).permit(:name, :description, :place_id, :latitude, :longitude, :address, :id, :image_url, :image_public_id)
     end
 end

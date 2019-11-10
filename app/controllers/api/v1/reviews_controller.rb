@@ -14,11 +14,31 @@ class Api::V1::ReviewsController < ApplicationController
   end
 
   def update
-  
+    byebug
+    if @current_user
+      review = Review.find(params[:id])
+      review.update(review_params)
+      if review.valid?
+        render json: review
+      else
+        render json: { errors: review.errors.full_messages }, status: :not_accepted
+      end
+    else
+      render json: { error: "user not valid"}
+    end
   end
 
   def destroy
-  
+    if @current_user
+      review = Review.find(params[:id])
+      if review.destroy
+        render json: review
+      else
+        render json: { errors: review.errors.full_messages }, status: :not_accepted
+      end
+    else
+      render json: { error: "user not valid"}
+    end
   end
 
   private

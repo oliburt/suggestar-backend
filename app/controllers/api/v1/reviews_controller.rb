@@ -14,7 +14,6 @@ class Api::V1::ReviewsController < ApplicationController
   end
 
   def update
-    byebug
     if @current_user
       review = Review.find(params[:id])
       review.update(review_params)

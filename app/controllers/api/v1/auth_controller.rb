@@ -9,7 +9,7 @@ class Api::V1::AuthController < ApplicationController
         end
     end
 
-    def validate
+    def validate  
         if @current_user
             venues = Venue.all.map{|venue| VenueSerializer.new(venue) }
             if !params[:latitude] || !params[:longitude] || !params[:radius]

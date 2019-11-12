@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :listings, only: [:index, :show, :create, :update, :destroy]
       resources :categories, only: [:index]
-      resources :users, only: [:index, :update]
+      resources :users, only: [:update, :destroy]
       resources :venues, only: [:create, :show, :index, :update, :destroy]
       resources :reviews, only: [:create, :update, :destroy]
       post '/like', to: 'likes#toggle'

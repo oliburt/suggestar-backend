@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     has_many :venues
+    has_many :listings, through: :venues
     has_many :reviews
     has_many :likes
     has_secure_password

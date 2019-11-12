@@ -1,8 +1,4 @@
 class Api::V1::UsersController < ApplicationController
-
-    def index
-        render json: User.all
-    end
     
     def create
         user = User.create(user_params)
@@ -23,6 +19,27 @@ class Api::V1::UsersController < ApplicationController
             end
         else
             render json: { errors: ['Incorrect Password'] }, status: :not_acceptable
+        end
+    end
+
+    def destroy
+        if @current_user
+            @current_user.listings.each{|l|
+                l.likes.each{ |like| like.destroy}
+            }
+            @current_user.listings.each{|l| 
+                l.listing_categories.each{ |listing_category| listing_category.destroy}
+            }
+            @current_user.venues.each{|v| v.reviews.each{ |review| review.destroy}}
+            @current_user.venues.each{ |v| v.destroy}
+
+            if @current_user.destroy
+                render json: @current_user
+            else
+                render json: {errors: @current_user.errors.full_messages }, status: :not_acceptable
+            end
+        else
+            render json: { error: 'Invalid User'}, status: :not_acceptable
         end
     end
 
